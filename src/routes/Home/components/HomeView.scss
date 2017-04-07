@@ -1,0 +1,30 @@
+.duck {
+  display: block;
+  width: 120px;
+  margin: 1.5rem auto;
+}
+
+
+.container form {
+	padding: 40px;
+}
+
+div h4 {
+	padding: 20px 40px;
+}
+
+form .form-group .input-group {
+	width: 100%;
+}
+
+form .form-group .input-group input {
+	border:none;
+	box-shadow: none;
+	border-bottom: 1px solid grey;
+}
+
+form .btn-primary {
+	width: 100%;
+	padding: 12px;
+	text-transform: uppercase;
+}
