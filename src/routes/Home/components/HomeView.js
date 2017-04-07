@@ -1,4 +1,5 @@
 import React from 'react'
+import IntlTelInput from 'react-intl-tel-input';
 import { connect } from 'react-redux'
 
 import './HomeView.scss'
@@ -23,14 +24,14 @@ const HomeView = ({ location }) => {
   return (
     <form id="inputForm"
           role="form"
-          onSubmit={(e) => {
+/*          onSubmit={(e) => {
     e.preventDefault();
 
     if (document.getElementById("inputForm")[0].checkValidity() == false)
       return;
 
     alert(this._input.value);
-  }}
+  }}*/
         >
           <h2>Welcome to Volleto!</h2>
           <h5>Open your <b>{invitationName}</b> on Volleto app.
@@ -38,11 +39,10 @@ const HomeView = ({ location }) => {
 
           <div className="form-group">
             <div className="input-group">
-              <input
-                type="tel" required="required"
+              <IntlTelInput
+                preferredCountries={['US', 'GB']}
                 placeholder="Mobile Number"
-                className="form-control"
-                ref={ref => (this._input = ref)}
+                /*ref={ref => (this._input = ref)}*/
               />
             </div>
           </div>

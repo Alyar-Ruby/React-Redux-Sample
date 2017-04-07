@@ -20,6 +20,9 @@ form .form-group .input-group {
 form .form-group .input-group input {
 	border:none;
 	box-shadow: none;
+	outline: none;
+	height: 24px;
+	font-size: 16px;
 	border-bottom: 1px solid grey;
 }
 
