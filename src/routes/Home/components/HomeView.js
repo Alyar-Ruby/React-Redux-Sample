@@ -9,23 +9,29 @@ const HomeView = ({ location }) => {
   const { query } = location
   const id = query.id
 
-  var _input;
+  var phoneNumber = '';
+
+  const onPhoneNumberChanged = (status, value, countryData, number, id) => {
+    if (value.length > 0)
+      phoneNumber = countryData.dialCode + value;
+    else
+      phoneNumber = '';
+  }
+  const onCountryChanged = (status, value, countryData, number, id) => {
+    if (status.length > 0)
+      phoneNumber = value.dialCode + status;
+    else
+      phoneNumber = '';
+  }
+
   function onSendSMS(e) {
     e.preventDefault();
 
-    var intlNumber = $("#inputForm").intlTelInput("getNumber");
-    alert(intlNumber);
+    alert('onSendSMS: ' + phoneNumber);
 
-    if (document.getElementById("inputForm")[0].checkValidity() == false)
-    {
-      alert("error");
-      return;
-    }
-
-    alert(_input);
-    // alert(this._input.value);
-    return false;
+    return true;
   }
+
 
   var invitationName;
 
@@ -44,14 +50,6 @@ const HomeView = ({ location }) => {
     <form id="inputForm"
           role="form"
           onSubmit={onSendSMS}
-/*          onSubmit={(e) => {
-    e.preventDefault();
-
-    if (document.getElementById("inputForm")[0].checkValidity() == false)
-      return;
-
-    alert(this._input.value);
-  }}*/
         >
           <h2>Welcome to Volleto!</h2>
           <h4>Open your <b>{invitationName}</b> on Volleto app.
@@ -62,7 +60,9 @@ const HomeView = ({ location }) => {
               <IntlTelInput id="phoneNumber"
                 preferredCountries={['US', 'GB']}
                 placeholder="Mobile Number"
-                ref={ref => (_input = ref)}
+                numberType = "MOBILE"
+                onPhoneNumberChange={onPhoneNumberChanged}
+                onSelectFlag={onCountryChanged}
               />
             </div>
           </div>
