@@ -2,6 +2,7 @@ import React from 'react'
 import IntlTelInput from 'react-intl-tel-input';
 import $ from 'jquery';
 import { connect } from 'react-redux'
+import branch from 'branch-sdk'
 
 import './HomeView.scss'
 
@@ -27,7 +28,39 @@ const HomeView = ({ location }) => {
   function onSendSMS(e) {
     e.preventDefault();
 
-    alert('onSendSMS: ' + phoneNumber);
+    if (phoneNumber.length == 0)
+    {
+      alert("No phone number.");
+      return;
+    }
+
+    branch.init('key_live_aauzveHjvXyHWgG0uMgE0ioiCtiFUMp6', function(err, data) {
+    	branch.sendSMS(
+        phoneNumber,
+        {
+            tags: ['tag1', 'tag2'],
+            channel: 'facebook',
+            feature: 'dashboard',
+            stage: 'new user',
+            data: {
+                mydata: 'something',
+                foo: 'bar',
+                '$desktop_url': 'http://myappwebsite.com',
+                '$ios_url': 'http://myappwebsite.com/ios',
+                '$ipad_url': 'http://myappwebsite.com/ipad',
+                '$android_url': 'http://myappwebsite.com/android',
+                '$og_app_id': '12345',
+                '$og_title': 'My App',
+                '$og_description': 'My app\'s description.',
+                '$og_image_url': 'http://myappwebsite.com/image.png'
+            }
+        },
+        { make_new_link: true }, // Default: false. If set to true, sendSMS will generate a new link even if one already exists. 
+        function(err) { console.log(err); }
+      );
+    });
+
+    // alert('onSendSMS: ' + phoneNumber);
 
     return true;
   }
